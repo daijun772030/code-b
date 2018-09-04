@@ -7,41 +7,43 @@ import App from './App'
 import router from './router'
 import fastclick from 'fastclick'
 import Plugin from './plugin'
+import create from '../src/plu/myapi'
 // const radio = (40/750)
 // document.documentElement.style.fontSize = radio * window.innerwidth + "px"
 
 
 // 设置html的font-size
-(function (doc, win) {
-  var docEl = doc.documentElement,
-      resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-      recalc = function () {
-          var clientWidth = docEl.clientWidth
-          if (!clientWidth) {
-            return false
-          }
-          docEl.style.fontSize = 40 * (clientWidth / 750) + 'px'
-      }
+(function(doc, win) {
+    var docEl = doc.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        recalc = function() {
+            var clientWidth = docEl.clientWidth
+            if (!clientWidth) {
+                return false
+            }
+            docEl.style.fontSize = 40 * (clientWidth / 750) + 'px'
+        }
 
-  if (!doc.addEventListener) {
-    return false
-  }
-  win.addEventListener(resizeEvt, recalc, false)
-  doc.addEventListener('DOMContentLoaded', recalc, false)
+    if (!doc.addEventListener) {
+        return false
+    }
+    win.addEventListener(resizeEvt, recalc, false)
+    doc.addEventListener('DOMContentLoaded', recalc, false)
 })(document, window);
 
+Vue.prototype.$api = create;
 Plugin(Vue)
 Vue.config.productionTip = false
 if ('addEventListener' in document) {
-  document.addEventListener('DOMContentLoaded', function() {
-    fastclick.attach(document.body)
-  })
+    document.addEventListener('DOMContentLoaded', function() {
+        fastclick.attach(document.body)
+    })
 }
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    components: { App },
+    template: '<App/>'
 })

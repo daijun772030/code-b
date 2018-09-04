@@ -10,19 +10,23 @@
       <div class="banner-fg">
         <img src="../../static/images/yaoqinghaoyou_zhuangshi@2x.png" alt="">
       </div>
-      <div class="user-content">
-        <img src="../../static/images/yaoqinghaoyou_hongbaocahua_lingquchenggong@2x.png" alt="">
+      <div  class="user-content">
+        <img :src="yhImg.img1" alt="">
+        <p v-if="disablet">
+          懒猪到家链接：<a>http://www.pigcome.com</a>
+        </p>
         <cube-input
+        v-if="disable"
         class="input"
         style="text-align:center"
-        type="number"
+        type="text"
         :maxlength=11
         :autofocus="true"
         clearble
         placeholder="点击输入您的手机号"
         v-model="value"
         ></cube-input>
-          <cube-button @click="updata" class="button">点击领取</cube-button>
+          <cube-button v-if="disable" @click="updata" class="button">点击领取</cube-button>
       </div>
       <div class="user-text">
         <p>活动规则</p>
@@ -41,8 +45,15 @@
 export default {
   data () {
     return {
+      disable:true,
+      disablet:false,
       userText:"88元新人红包等你来拿",
-      value: ''
+      value: '',
+      yhImg:{
+        img1:'../../static/images/yaoqinghaoyou_hongbaocahua_xinyonghuzhuangxiang@2x.png',
+        img2:'../../static/images/yaoqinghaoyou_hongbaocahua_lingquchenggong@2x.png',
+        img3:'../../static/images/yaoqinghaoyou_hongbaocahua_yilingqu@2x.png'
+      }
     }
   },
   created () {
@@ -50,8 +61,38 @@ export default {
   },
   methods: {
     updata () {
+      // var u = navigator.userAgent; 
+      // var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端 
+      // var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端 
+      // var webKit = u.indexOf('AppleWebKit') > -1; /*苹果、谷歌内核*/
+      //   var mobile = !!u.match(/AppleWebKit.*Mobile.*/); /*是否为移动终端*/
+      //   var weixin= u.toLowerCase().indexOf('micromessenger') > -1 /*是否是微信*/
+      // alert('是否是Android：'+isAndroid);  
+      // alert('是否是iOS：'+isiOS);
+      //  alert('是否是：'+webKit);
+      //  alert('是否是：'+mobile);
+      // alert('是否是：'+weixin);
+      // this.$api('network',{params:{phone:this.value,type:'2'}}).then((res)=>{
+      //   console.log(res);
+      // })
+      // console.log(this.value)
       this.$api('network',{params:{phone:this.value,type:'2'}}).then((res)=>{
-        console.log(res);
+        // debugger;
+        var data = res.data;
+        console.log(data);
+        var text = data.split('(')[1]
+        var text1 = text.split('"')[1]
+        console.log(text1)
+        debugger;
+        if(text1 == '成功' ){
+          this.disable = false;
+          this.disablet = true;
+          this.yhImg.img1 = this.yhImg.img2
+        } else if (text1 == '该手机已被注册' ) {
+          this.yhImg.img1 = this.yhImg.img3
+          this.disable = false;
+          this.disablet = true;
+        }
       })
       console.log(this.value)
     }
@@ -87,9 +128,10 @@ export default {
     margin:0 auto;
   }
   .user-content {
+    text-align: center;
     width: 594px;
     margin: 0 auto;
-    padding: 30px 0 51px 
+    padding-top: 30px; 
   }
   .user-content>img{
     width: 475px;
@@ -102,6 +144,7 @@ export default {
     text-align: center;
   }
   .user-content>input{
+    vertical-align:middle;
     text-align: center;
     font-size:26px;
     font-family:PingFang-SC-Regular;
@@ -115,7 +158,18 @@ export default {
     border-radius:2px;
     text-align: center
   }
+  .user-content>p{
+    margin: 51px 0 65px 0;
+    width: 100%;
+    text-align:center;
+    font-size:26px;
+    font-family:PingFang-SC-Medium;
+    font-weight:500;
+    text-decoration:underline;
+    color:rgba(255,255,255,1);
+  }
   .user-text>p{
+    padding: 51px 0 25px 0;
     text-align: center;
     height:29px;
     font-size:26px;
