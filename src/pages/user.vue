@@ -103,7 +103,11 @@ export default {
   .user {
     background-image: url('../../static/images/yanqinghaoyou_dabeijing@2x.png');
     width: 100%;
-    height: 100%;
+    min-height: 100%;
+    min-height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
   }
   .banner { 
     width: 100%;
