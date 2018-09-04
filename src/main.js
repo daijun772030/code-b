@@ -9,6 +9,27 @@ import fastclick from 'fastclick'
 import Plugin from './plugin'
 // const radio = (40/750)
 // document.documentElement.style.fontSize = radio * window.innerwidth + "px"
+
+
+// 设置html的font-size
+(function (doc, win) {
+  var docEl = doc.documentElement,
+      resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+      recalc = function () {
+          var clientWidth = docEl.clientWidth
+          if (!clientWidth) {
+            return false
+          }
+          docEl.style.fontSize = 40 * (clientWidth / 750) + 'px'
+      }
+
+  if (!doc.addEventListener) {
+    return false
+  }
+  win.addEventListener(resizeEvt, recalc, false)
+  doc.addEventListener('DOMContentLoaded', recalc, false)
+})(document, window);
+
 Plugin(Vue)
 Vue.config.productionTip = false
 if ('addEventListener' in document) {

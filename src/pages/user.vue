@@ -8,7 +8,7 @@
         {{userText}}
       </p>
       <div class="banner-fg">
-        <img src="../../static/images\yaoqinghaoyou_zhuangshi@2x.png" alt="">
+        <img src="../../static/images/yaoqinghaoyou_zhuangshi@2x.png" alt="">
       </div>
       <div class="user-content">
         <img src="../../static/images/yaoqinghaoyou_hongbaocahua_lingquchenggong@2x.png" alt="">
