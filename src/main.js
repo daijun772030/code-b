@@ -6,7 +6,8 @@ import router from './router'
 import fastclick from 'fastclick'
 import Plugin from './plugin'
 import create from '../src/plu/myapi'
-import './index.css'
+import '../static/css/normalize.css'
+import '../static/css/index.css'
 // const radio = (40/750)
 // document.documentElement.style.fontSize = radio * window.innerwidth + "px"
 

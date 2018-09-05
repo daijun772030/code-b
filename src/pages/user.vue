@@ -26,7 +26,7 @@
         v-model="value"
       ></cube-input> -->
       <input class="input" type="text" v-if="input1" placeholder="点击输入您的手机号" v-model="value">
-        <cube-button v-if="disable" @click="updata" class="button">点击领取</cube-button>
+        <button v-if="disable" @click="updata" class="button">点击领取</button>
     </div>
     <div class="user-text">
       <p>活动规则</p>
@@ -73,42 +73,31 @@ export default {
         return props;
     },
     getUrl () {
-      debugger;
       var url = location.href;
       this.GetRequest(url)
         var cs;
         var request = this.GetRequest(url)
         if(request != null && request.length == 1) {
           cs = request[0][1]
-          console.log(cs);
           this.userId = cs;
         }
     },
 
     updata () {
       this.getUrl();
-      var u = navigator.userAgent; 
-       var u = navigator.userAgent;
+      var u = navigator.userAgent;
       var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端 
       var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端 
       var webKit = u.indexOf('AppleWebKit') > -1; /*苹果、谷歌内核*/
-        var mobile = !!u.match(/AppleWebKit.*Mobile.*/); /*是否为移动终端*/
-        var weixin= u.toLowerCase().indexOf('micromessenger') > -1 /*是否是微信*/
-      // alert('是否是Android：'+isAndroid);  
-      // alert('是否是iOS：'+isiOS);
-      //  alert('是否是：'+webKit);
-      //  alert('是否是：'+mobile);
-      // alert('是否是：'+weixin);
-      console.log(this.value)
+      var mobile = !!u.match(/AppleWebKit.*Mobile.*/); /*是否为移动终端*/
+      var weixin= u.toLowerCase().indexOf('micromessenger') > -1 /*是否是微信*/
       if (isAndroid) {
         this.type = "0"
         this.$api('network',{params:{phone:this.value,type:this.type,userid:this.userId}}).then((res)=>{
           // debugger;
           var data = res.data;
-          console.log(data);
           var text = data.split('(')[1]
           var text1 = text.split('"')[1]
-          console.log(text1)
           // debugger;
           if(text1 == '成功' ){
             this.userText = '邀好友 得5...元红包';
@@ -124,7 +113,6 @@ export default {
             this.disablet = true;
           }
         })
-        console.log('这是安卓机')
       }else if (isiOS) {
         this.type = "1"
         this.$api('network',{params:{phone:this.value,type:this.type,userid:this.userId}}).then((res)=>{
@@ -133,7 +121,6 @@ export default {
           console.log(data);
           var text = data.split('(')[1]
           var text1 = text.split('"')[1]
-          console.log(text1)
           // debugger;
           if(text1 == '成功' ){
             this.userText = '邀好友 得5...元红包';
@@ -149,9 +136,7 @@ export default {
             this.disablet = true;
           }
         })
-        console.log("这是苹果机")
       }else if(webKit) {
-        console.log("这是pc")
       }
       
       console.log(this.value)
@@ -163,8 +148,7 @@ export default {
   #app>.user {
     background-image: url('../../static/images/yanqinghaoyou_dabeijing@3x.png');
     width: 100%;
-    min-height: 100%;
-    height: 100%;
+    overflow: hidden;
     /* height: 20px; */
     background-repeat: no-repeat;
     background-size: cover;
@@ -172,7 +156,9 @@ export default {
   }
   .banner { 
     width: 100%;
-    min-height: 100%;
+  }
+  .banner-logo{
+    text-align: center;
   }
   .banner-logo>img{
     width:197px;
@@ -188,6 +174,9 @@ export default {
     color:rgba(100,32,34,1);
     margin:38px auto;
   }
+  .banner-fg{
+    text-align: center;
+  }
   .banner-fg>img{
     width: 390px;
     margin:0 auto;
@@ -195,7 +184,6 @@ export default {
   .user-content {
     text-align: center;
     width: 594px;
-    height: 100%;
     margin: 0 auto;
     padding-top: 30px; 
   }
@@ -209,10 +197,11 @@ export default {
     margin-top: 38px;
     text-align: center;
     vertical-align:middle;
-    text-align: center;
     font-size:26px;
     font-family:PingFang-SC-Regular;
     color:rgba(153,153,153,1);
+    border: none;
+    outline: none;
   }
   .user-content>.button {
     width: 100%;
@@ -224,7 +213,9 @@ export default {
     color:rgba(255,255,255,1);
     background:rgba(0,203,153,1);
     border-radius:2px;
-    text-align: center
+    text-align: center;
+    border:none;
+    outline: none;
   }
   .user-content>p{
     margin: 51px 0 30px 0;
