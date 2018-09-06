@@ -13,14 +13,14 @@ module.exports = {
         proxyTable: {
             //这里设置代理的接口头部
             '/api': {
-                target: "http://39.108.113.149:8082/",
+                target: "http://192.168.0.106:8082/",
                 changeOrigin: true, // 是否跨域
                 pathRewrite: {
                     '^/api': ''
                 }
             },
             '/test': {
-                target: "http://192.168.0.124:8081/",
+                target: "http://192.168.0.124:8082/",
                 changeOrigin: true, // 是否跨域
                 pathRewrite: {
                     '^/test': ''
@@ -29,7 +29,7 @@ module.exports = {
         },
 
         // Various Dev Server settings
-        host: 'localhost', // can be overwritten by process.env.HOST
+        host: '0.0.0.0', // can be overwritten by process.env.HOST
         port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
         autoOpenBrowser: false,
         errorOverlay: true,

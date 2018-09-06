@@ -12,19 +12,7 @@
     <div  class="user-content">
       <img :src="yhImg.img1" alt="">
       <p v-if="disablet">
-        懒猪到家链接：<a>http://www.pigcome.com</a>
-      </p>
-      <!-- <cube-input
-        v-if="disable"
-        class="input"
-        style="text-align:center"
-        type="text"
-        :maxlength=11
-        :autofocus="true"
-        clearble
-        placeholder="点击输入您的手机号"
-        v-model="value"
-      ></cube-input> -->
+        <a href="http://www.pigcome.com">懒猪到家链接：http://www.pigcome.com</a></p>
       <input class="input" type="text" v-if="input1" placeholder="点击输入您的手机号" v-model="value">
         <button v-if="disable" @click="updata" class="button">点击领取</button>
     </div>
@@ -61,6 +49,12 @@ export default {
   created () {
   },
   methods: {
+     checkMobile() {
+      var sMobile = this.value;
+      if (!(/^1[3|4|5|8][0-9]\d{4,8}$/.test(sMobile))) {
+          return false;
+      } else return true;
+    },
     GetRequest (url) {
       var props = [];
         if (url.indexOf("?") != -1) {    //判断是否有参数
@@ -73,72 +67,78 @@ export default {
         return props;
     },
     getUrl () {
+      // debugger;
       var url = location.href;
       this.GetRequest(url)
         var cs;
         var request = this.GetRequest(url)
-        if(request != null && request.length == 1) {
-          cs = request[0][1]
+        if(request != null || request.length >=2 || request.length>1) {
+          cs = request[0][0]
           this.userId = cs;
         }
     },
 
     updata () {
-      this.getUrl();
-      var u = navigator.userAgent;
-      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端 
-      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端 
-      var webKit = u.indexOf('AppleWebKit') > -1; /*苹果、谷歌内核*/
-      var mobile = !!u.match(/AppleWebKit.*Mobile.*/); /*是否为移动终端*/
-      var weixin= u.toLowerCase().indexOf('micromessenger') > -1 /*是否是微信*/
-      if (isAndroid) {
-        this.type = "0"
-        this.$api('network',{params:{phone:this.value,type:this.type,userid:this.userId}}).then((res)=>{
-          // debugger;
-          var data = res.data;
-          var text = data.split('(')[1]
-          var text1 = text.split('"')[1]
-          // debugger;
-          if(text1 == '成功' ){
-            this.userText = '邀好友 得5...元红包';
-            this.disable = false;
-            this.input1 = false;
-            this.disablet = true;
-            this.yhImg.img1 = this.yhImg.img2
-          } else if (text1 == '该手机已被注册' ) {
-            this.input1 = false
-            this.yhImg.img1 = this.yhImg.img3;
-            this.userText = '邀好友 得5...元红包'
-            this.disable = false;
-            this.disablet = true;
-          }
-        })
-      }else if (isiOS) {
-        this.type = "1"
-        this.$api('network',{params:{phone:this.value,type:this.type,userid:this.userId}}).then((res)=>{
-          // debugger;
-          var data = res.data;
-          console.log(data);
-          var text = data.split('(')[1]
-          var text1 = text.split('"')[1]
-          // debugger;
-          if(text1 == '成功' ){
-            this.userText = '邀好友 得5...元红包';
-            this.disable = false;
-            this.input1 = false;
-            this.disablet = true;
-            this.yhImg.img1 = this.yhImg.img2
-          } else if (text1 == '该手机已被注册' ) {
-            this.input1 = false
-            this.yhImg.img1 = this.yhImg.img3;
-            this.userText = '邀好友 得5...元红包'
-            this.disable = false;
-            this.disablet = true;
-          }
-        })
-      }else if(webKit) {
+      const isPhone = this.checkMobile();
+      if(isPhone) {
+        this.getUrl();
+        var u = navigator.userAgent;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端 
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端 
+        var webKit = u.indexOf('AppleWebKit') > -1; /*苹果、谷歌内核*/
+        var mobile = !!u.match(/AppleWebKit.*Mobile.*/); /*是否为移动终端*/
+        var weixin= u.toLowerCase().indexOf('micromessenger') > -1 /*是否是微信*/
+        if (isAndroid) {
+          this.type = "0"
+          this.$api('network',{params:{phone:this.value,type:this.type,userid:this.userId}}).then((res)=>{
+            // debugger;
+            var data = res.data;
+            var text = data.split('(')[1]
+            var text1 = text.split('"')[1]
+            // debugger;
+            if(text1 == '成功' ){
+              this.userText = '邀好友 得5...元红包';
+              this.disable = false;
+              this.input1 = false;
+              this.disablet = true;
+              this.yhImg.img1 = this.yhImg.img2
+            } else if (text1 == '该手机已被注册' ) {
+              this.input1 = false
+              this.yhImg.img1 = this.yhImg.img3;
+              this.userText = '邀好友 得5...元红包'
+              this.disable = false;
+              this.disablet = true;
+            }
+          })
+        }else if (isiOS) {
+          this.type = "1"
+          this.$api('network',{params:{phone:this.value,type:this.type,userid:this.userId}}).then((res)=>{
+            // debugger;
+            var data = res.data;
+            console.log(data);
+            var text = data.split('(')[1]
+            var text1 = text.split('"')[1]
+            // debugger;
+            if(text1 == '成功' ){
+              this.userText = '邀好友 得5...元红包';
+              this.disable = false;
+              this.input1 = false;
+              this.disablet = true;
+              this.yhImg.img1 = this.yhImg.img2
+            } else if (text1 == '该手机已被注册' ) {
+              this.input1 = false
+              this.yhImg.img1 = this.yhImg.img3;
+              this.userText = '邀好友 得5...元红包'
+              this.disable = false;
+              this.disablet = true;
+            }
+          })
+        }else {
+          
+        }
+      }else {
+        alert ('请输入正确的手机号')
       }
-      
       console.log(this.value)
     }
   }
@@ -164,6 +164,8 @@ export default {
     width:197px;
     height:51px;
     background:rgba(0,212,160,1); 
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
   }
   .banner-p{
     text-align: center;
@@ -225,6 +227,10 @@ export default {
     font-family:PingFang-SC-Medium;
     font-weight:500;
     text-decoration:underline;
+    color:rgba(255,255,255,1);
+  }
+  a {
+    text-decoration: underline;
     color:rgba(255,255,255,1);
   }
   .user-text {
