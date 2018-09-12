@@ -13,7 +13,7 @@ module.exports = {
         proxyTable: {
             //这里设置代理的接口头部
             '/api': {
-                target: "http://39.108.113.149:8082/",
+                target: "http://www.pigcome.com:8082",
                 changeOrigin: true, // 是否跨域
                 pathRewrite: {
                     '^/api': ''

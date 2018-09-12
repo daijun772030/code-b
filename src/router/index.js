@@ -8,6 +8,7 @@ import Law from '@/pages/law'
 import Privacy from '@/pages/privacy'
 import Agreement from '@/pages/agreement'
 import Rule from '@/pages/rule'
+import About from '@/pages/wxH5About'
 Vue.use(Router)
 
 export default new Router({
@@ -46,6 +47,11 @@ export default new Router({
             path: '/rule',
             name: 'rule',
             component: Rule
+        },
+        {
+            path: '/about',
+            name: 'about',
+            component: About
         }
     ]
 })
