@@ -30,7 +30,7 @@
       <div class="adress-call">
         <div class="address-left">
           <div class="item itemTwo">
-            <img  src="" alt="">
+            <img  src="">
             <span>联系我们</span>
           </div>
           <div class="item">
