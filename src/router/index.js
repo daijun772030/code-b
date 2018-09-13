@@ -9,6 +9,8 @@ import Privacy from '@/pages/privacy'
 import Agreement from '@/pages/agreement'
 import Rule from '@/pages/rule'
 import About from '@/pages/wxH5About'
+import Footer from '@/pages/footer'
+import Enter from '@/pages/wxH5enter'
 Vue.use(Router)
 
 export default new Router({
@@ -52,6 +54,16 @@ export default new Router({
             path: '/about',
             name: 'about',
             component: About
+        },
+        {
+            path: '/footer',
+            name: 'footer',
+            component: Footer
+        },
+        {
+            path: '/enter',
+            name: 'enter',
+            component: Enter
         }
     ]
 })

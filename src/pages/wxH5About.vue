@@ -22,16 +22,48 @@
     </div>
     <div class="banner1"></div>
     <div class="map">
-      <div class="map-child"></div>
-      <div class="address"></div>
+      <div class="map-child" id="container"></div>
+      <div class="address">
+        <div class="img">
+           <img class="imgqt" src="../../static/images/weizhi2@2x.png" alt="">
+           <img src="../../static/images/dianhua2@2x.png" alt="">
+           <img src='../../static/images/youxiang2@2x.png' alt="">
+        </div>
+        <div class="address-text">
+          <p>四川省成都市高新区<br>美年广场D座496室</p>
+          <p>400-028-6889</p>
+          <p>cya@pigcome.com</p>
+        </div>
+      </div>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 <script>
+import Footer from './footer.vue'
+import BMap from 'BMap'
 export default {
   data () {
     return {
-
+    }
+  },
+  components: {
+    Footer
+  },
+  created () {
+     
+  },
+  mounted () {
+    this.baiduMap();
+  },
+  methods:{
+    baiduMap () {
+      var map = new BMap.Map('container')//创建地图实列
+      var point  = new BMap.Point(104.074841, 30.540294)//创建坐标
+      map.centerAndZoom(point,15);
+      var marker = new BMap.marker(point);
+      map.addOverlay(marker);
+      map.enableSrcllWheelzoom(true)
     }
   }
 }
@@ -99,11 +131,10 @@ export default {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    align-content: space-between;
 
   }
   .about-contentAll p {
-    font-size:15px;
+    font-size:20px;
     font-family:MicrosoftYaHei;
     font-weight:400;
     color:rgba(153,153,153,1);
@@ -122,13 +153,50 @@ export default {
   .map{
     width: 100%;
     height:347px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
   }
   .map-child{
     width:470px;
     height: 243px;
+    background-color: red;
   }
   .address{
-    
+    width: 250px;
+    height: 163px;
+    font-size:20px;
+    font-family:MicrosoftYaHei;
+    font-weight:400;
+    color:rgba(102,102,102,1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .address-text{
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .img{
+    height:90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .imgqt{
+    margin-top: 20px;
+  }
+  
+  img{
+    width: 22px;
+    height:auto;
+
   }
 </style>
 
