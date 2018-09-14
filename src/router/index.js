@@ -11,6 +11,7 @@ import Rule from '@/pages/rule'
 import About from '@/pages/wxH5About'
 import Footer from '@/pages/footer'
 import Enter from '@/pages/wxH5enter'
+import Dowm from '@/pages/dowm'
 Vue.use(Router)
 
 export default new Router({
@@ -64,6 +65,11 @@ export default new Router({
             path: '/enter',
             name: 'enter',
             component: Enter
+        },
+        {
+            path: '/dowm',
+            name: 'dowm',
+            component: Dowm
         }
     ]
 })
