@@ -12,6 +12,8 @@ import About from '@/pages/wxH5About'
 import Footer from '@/pages/footer'
 import Enter from '@/pages/wxH5enter'
 import Dowm from '@/pages/dowm'
+import Liupeijia from '@/pages/liupeijia'
+import Instructions from '@/pages/instructions'
 Vue.use(Router)
 
 export default new Router({
@@ -70,6 +72,16 @@ export default new Router({
             path: '/dowm',
             name: 'dowm',
             component: Dowm
+        },
+        {
+            path: '/liupeijia',
+            name: 'liupeijia',
+            component: Liupeijia
+        },
+        {
+            path: '/instructions',
+            name: 'instructions',
+            component: Instructions
         }
     ]
 })

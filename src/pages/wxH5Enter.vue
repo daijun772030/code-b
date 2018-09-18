@@ -47,10 +47,10 @@
           </div>
         </div>
         <div class="address-right">
-            <p>关于我们</p>
-            <p><img src="../../static/images/erweima@2x.png" alt=""></p>
+            <p>加入我们</p>
+            <p><img src="../../static/images/appQR.png" alt=""></p>
             <p>扫一扫</p>
-            <p>关注微信公众号</p>
+            <p>下载懒猪app</p>
         </div>
       </div>
       <div class="adress-com">
